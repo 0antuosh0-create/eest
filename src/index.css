@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+@theme {
+  --color-panel: #f4efe2;
+  --color-panel-2: #eae3d1;
+  --color-grid: #dcd3be;
+  --color-ink: #161511;
+  --color-graphite: #5b5647;
+  --color-cobalt: #1b45d6;
+  --color-cobalt-dark: #0b2a9e;
+  --color-cobalt-light: #4e75f0;
+  --color-hazard: #ff5c1f;
+  --color-hazard-dark: #b3350a;
+  --color-verified: #0f8a5f;
+  --font-fa: "Vazirmatn", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  body {
+    background-color: var(--color-panel);
+    color: var(--color-ink);
+    font-family: var(--font-fa);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 26px 26px;
+    background-position: -1px -1px;
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
+  }
+
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  ::selection {
+    background: var(--color-hazard);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-hazard);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  /* ---- Responsive Neo-brutalist industrial primitives ---- */
+  .brut {
+    border: 2px solid var(--color-ink);
+    box-shadow: 4px 4px 0 0 var(--color-ink);
+  }
+  @media (min-width: 640px) {
+    .brut {
+      border-width: 3px;
+      box-shadow: 7px 7px 0 0 var(--color-ink);
+    }
+  }
+
+  .brut-sm {
+    border: 2px solid var(--color-ink);
+    box-shadow: 2.5px 2.5px 0 0 var(--color-ink);
+  }
+  @media (min-width: 640px) {
+    .brut-sm {
+      border-width: 2.5px;
+      box-shadow: 4px 4px 0 0 var(--color-ink);
+    }
+  }
+
+  .brut-cobalt {
+    border: 2px solid var(--color-ink);
+    box-shadow: 4px 4px 0 0 var(--color-cobalt);
+  }
+  @media (min-width: 640px) {
+    .brut-cobalt {
+      border-width: 3px;
+      box-shadow: 7px 7px 0 0 var(--color-cobalt);
+    }
+  }
+
+  .press {
+    transition:
+      transform 120ms cubic-bezier(0.2, 0.9, 0.3, 1),
+      box-shadow 120ms cubic-bezier(0.2, 0.9, 0.3, 1),
+      background-color 120ms linear;
+    touch-action: manipulation;
+  }
+  .press:hover {
+    transform: translate(-1.5px, -1.5px);
+    box-shadow: 5px 5px 0 0 var(--color-ink);
+  }
+  @media (min-width: 640px) {
+    .press:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 9px 9px 0 0 var(--color-ink);
+    }
+  }
+  .press:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--color-ink);
+  }
+  @media (min-width: 640px) {
+    .press:active {
+      transform: translate(4px, 4px);
+      box-shadow: 1px 1px 0 0 var(--color-ink);
+    }
+  }
+  .press:disabled,
+  .press:disabled:hover,
+  .press:disabled:active {
+    transform: none;
+    box-shadow: 2px 2px 0 0 var(--color-ink);
+    cursor: not-allowed;
+  }
+  @media (min-width: 640px) {
+    .press:disabled,
+    .press:disabled:hover,
+    .press:disabled:active {
+      box-shadow: 4px 4px 0 0 var(--color-ink);
+    }
+  }
+  /* Seamless mathematically exact 45-degree hazard stripes */
+  .hazard-band {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-hazard) 0px,
+      var(--color-hazard) 14.142px,
+      var(--color-ink) 14.142px,
+      var(--color-ink) 28.284px
+    );
+    background-size: 40px 40px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  .hazard-thin {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-hazard) 0px,
+      var(--color-hazard) 8.485px,
+      var(--color-ink) 8.485px,
+      var(--color-ink) 16.971px
+    );
+    background-size: 24px 24px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  .lat {
+    font-family: var(--font-mono);
+    direction: ltr;
+    unicode-bidi: isolate;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+    font-weight: 700;
+  }
+
+  .num {
+    font-family: var(--font-mono);
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  .stack-shadow {
+    box-shadow:
+      7px 7px 0 0 var(--color-ink),
+      14px 14px 0 0 var(--color-cobalt);
+  }
+
+  .rail-line {
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-ink) 0 10px,
+      transparent 10px 20px
+    );
+    background-size: 3px 20px;
+    background-repeat: repeat-y;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 34s linear infinite;
+}
+
+@keyframes blinkCaret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blinkCaret 1s steps(1) infinite;
+}
+
+/* Mathematically seamless infinite hazard tape drift */
+@keyframes tapeDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+@keyframes tapeDriftThin {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 24px 0;
+  }
+}
+
+.tape-run {
+  animation: tapeDrift 1.6s linear infinite;
+  will-change: background-position;
+}
+.tape-run-thin {
+  animation: tapeDriftThin 1.2s linear infinite;
+  will-change: background-position;
+}
+
+.tape-run:hover,
+.tape-run-thin:hover {
+  animation-duration: 0.8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .tape-run,
+  .tape-run-thin,
+  .marquee,
+  .caret {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* scrollbar in the console */
+.console-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.console-scroll::-webkit-scrollbar-track {
+  background: #0d0d0b;
+}
+.console-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-hazard);
+  border: 2px solid #0d0d0b;
+}
