@@ -73,16 +73,55 @@ export function Lab() {
       </div>
 
       <div className="relative mx-auto max-w-[1280px] px-4 py-12 sm:px-8 sm:py-20">
-        <header className="mb-12 max-w-[70ch]">
-          <div className="lat mb-3 text-hazard-dark">THE BENCH · INTERACTIVE RANKINE LAB</div>
-          <h2 className="text-[clamp(2.1rem,5.4vw,3.8rem)] leading-[1.3] font-black">
-            دستت را روی چرخ‌ها بگذار
-          </h2>
-          <p className="mt-4 text-[1.02rem] leading-[2.1] text-graphite">
-            این همان معادلات ایستگاه ۰۶ است — اما زنده. فشار دیگ را حرکت بده و ببین بازده‌ی خالص،
-            کیفیت بخار خروجی توربین و نسبت کار پمپ چطور واکنش نشان می‌دهند. اعداد از جدول IAPWS-IF97
-            بخار فوق‌گرم در ۵۰۰ درجه درون‌یابی می‌شوند.
-          </p>
+        <header className="mb-10 sm:mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-[68ch]">
+            <div className="lat mb-3 text-hazard-dark">THE BENCH · INTERACTIVE RANKINE LAB</div>
+            <h2 className="text-[clamp(2.1rem,5.4vw,3.8rem)] leading-[1.3] font-black">
+              دستت را روی چرخ‌ها بگذار
+            </h2>
+            <p className="mt-4 text-[1rem] sm:text-[1.02rem] leading-[2] sm:leading-[2.1] text-graphite">
+              این همان معادلات ایستگاه ۰۶ است — اما زنده. فشار دیگ را حرکت بده و ببین بازده‌ی خالص،
+              کیفیت بخار خروجی توربین و نسبت کار پمپ چطور واکنش نشان می‌دهند. اعداد از جدول IAPWS-IF97
+              بخار فوق‌گرم در ۵۰۰ درجه درون‌یابی می‌شوند.
+            </p>
+          </div>
+
+          {/* Live Bench Telemetry card (eliminates the empty space in Lab header) */}
+          <div className="brut bg-panel shrink-0 w-full lg:w-[380px]">
+            <div className="flex items-center justify-between border-b-[2.5px] border-ink bg-ink px-4 py-2 text-panel">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-hazard animate-pulse" />
+                <span className="lat text-[11px] text-panel">LIVE BENCH TELEMETRY</span>
+              </div>
+              <span className="lat text-[10px] text-hazard">IAPWS-IF97</span>
+            </div>
+
+            <div className="grid grid-cols-2 divide-x divide-x-reverse divide-ink p-1 bg-panel-2">
+              <div className="p-3 bg-panel">
+                <div className="lat text-graphite text-[10px] mb-1">THERMAL EFF.</div>
+                <div className="num text-[1.65rem] font-bold text-cobalt leading-none">
+                  {(r.eta * 100).toFixed(1)}%
+                </div>
+                <div className="lat text-[9.5px] text-graphite mt-1.5">CARNOT: 58.7%</div>
+              </div>
+
+              <div className="p-3 bg-panel">
+                <div className="lat text-graphite text-[10px] mb-1">NET POWER (50 kg/s)</div>
+                <div className="num text-[1.65rem] font-bold text-hazard leading-none">
+                  {((r.wNet * 50) / 1000).toFixed(1)}
+                  <span className="text-xs font-normal text-graphite mr-1">MW</span>
+                </div>
+                <div className="lat text-[9.5px] text-graphite mt-1.5">w_net: {r.wNet.toFixed(0)} kJ/kg</div>
+              </div>
+            </div>
+
+            <div className="border-t-[2px] border-ink bg-panel px-4 py-2 flex items-center justify-between text-[11px]">
+              <span className="text-graphite font-bold">وضعیت سیکل:</span>
+              <span className={`lat font-bold ${r.x4 < 0.86 ? "text-hazard" : "text-verified"}`}>
+                {superheated ? "SUPERHEATED ✓" : r.x4 < 0.86 ? "MOISTURE TRAP ⚠" : "SAFE REGIME ✓"}
+              </span>
+            </div>
+          </div>
         </header>
         {/* Mobile Lab Tab Bar */}
         <div className="flex lg:hidden items-stretch border-[2px] border-ink bg-panel-2 mb-4 p-1 gap-1">
